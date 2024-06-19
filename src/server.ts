@@ -34,7 +34,7 @@ async function startServer() {
             console.log(`Servidor rodando em http://localhost:${port}`);
         });
     } catch (err) {
-        console.error('Erro ao iniciar o servidor:', err);
+        console.error('!Erro ao iniciar o servidor:', err);
     }
 }
 
