@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import * as userController from './controllers/UserController';
 import * as companyController from './controllers/CompanyController'
 import * as customerController from './controllers/CustomerController'
+import * as productController from './controllers/ProductController'
 
 const router = Router()
 
@@ -29,5 +30,12 @@ router.get('/customers/:id', customerController.getCustomerById);
 router.get('/customers', customerController.getAllCustomers);
 router.put('/customers/:id', customerController.updateCustomer);
 router.delete('/customers/:id', customerController.deleteCustomer);
+
+// product
+router.post('/products', productController.createProduct);
+router.get('/products/:id', productController.getProductById);
+router.get('/products', productController.getAllProducts);
+router.put('/products/:id', productController.updateProduct);
+router.delete('/products/:id', productController.deleteProduct);
 
 export { router }
