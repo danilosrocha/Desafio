@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-interface IClient extends Document {
+interface ICustomer extends Document {
     name: string
     email: string
     telephone: string,
@@ -28,8 +28,8 @@ const clientSchema: Schema = new Schema({
     }
 })
 
-const client = mongoose.model<IClient>('Client', clientSchema)
+const client = mongoose.model<ICustomer>('Customer', clientSchema)
 
 export default client
 
-export { IClient }
+export { ICustomer }

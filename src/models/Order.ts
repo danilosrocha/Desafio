@@ -8,7 +8,7 @@ interface IOrder extends Document {
         product: mongoose.Types.ObjectId;
         quantity: number;
     }[];
-    client: mongoose.Types.ObjectId
+    customer: mongoose.Types.ObjectId
     company: mongoose.Types.ObjectId
 
 }
@@ -46,9 +46,9 @@ const orderSchema: Schema = new Schema({
         ref: 'Company',
         required: true
     },
-    client: {
+    Customer: {
         type: Schema.Types.ObjectId,
-        ref: 'Client',
+        ref: 'Customer',
         required: true
     }
 })
