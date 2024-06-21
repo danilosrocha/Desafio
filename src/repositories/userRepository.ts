@@ -9,6 +9,11 @@ const getUserById = async (id: string): Promise<IUser | null> => {
     return await User.findById(id);
 };
 
+const getUserByEmail = async (email: string): Promise<IUser | null> => {
+    return await User.findOne({ email: email }).exec();
+};
+
+
 const getAllUsers = async (): Promise<IUser[]> => {
     return await User.find();
 };
@@ -24,6 +29,7 @@ const deleteUser = async (id: string): Promise<IUser | null> => {
 export {
     createUser,
     getUserById,
+    getUserByEmail,
     getAllUsers,
     updateUser,
     deleteUser,
