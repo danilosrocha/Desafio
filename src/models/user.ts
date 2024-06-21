@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from "mongoose";
 interface IUser extends Document {
     name: string;
     email: string;
+    password: string;
     companies: mongoose.Types.ObjectId[];
 }
 
