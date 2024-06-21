@@ -1,5 +1,5 @@
-import { IUser } from '../models/user';
-import * as userRepository from '../repositories/userRepository';
+import { IUser } from '../models/User';
+import * as userRepository from '../repositories/UserRepository';
 
 const createUser = async (userData: IUser): Promise<IUser> => {
     return await userRepository.createUser(userData);
