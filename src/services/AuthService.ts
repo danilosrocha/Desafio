@@ -1,6 +1,6 @@
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import * as userService from '../services/UserService';
+import * as userService from './UserService';
 
 
 async function login(email: string, password: string): Promise<string> {
