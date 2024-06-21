@@ -10,13 +10,14 @@ interface IOrder extends Document {
     }[];
     customer: mongoose.Types.ObjectId
     company: mongoose.Types.ObjectId
-
 }
+
 
 const orderSchema: Schema = new Schema({
     number: {
         type: Number,
-        require: true
+        require: true,
+        unique: true
     },
     observation: {
         type: String,
@@ -46,7 +47,7 @@ const orderSchema: Schema = new Schema({
         ref: 'Company',
         required: true
     },
-    Customer: {
+    customer: {
         type: Schema.Types.ObjectId,
         ref: 'Customer',
         required: true

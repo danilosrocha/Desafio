@@ -3,6 +3,7 @@ import * as userController from './controllers/UserController';
 import * as companyController from './controllers/CompanyController'
 import * as customerController from './controllers/CustomerController'
 import * as productController from './controllers/ProductController'
+import * as orderController from './controllers/OrderController'
 
 const router = Router()
 
@@ -37,5 +38,12 @@ router.get('/products/:id', productController.getProductById);
 router.get('/products', productController.getAllProducts);
 router.put('/products/:id', productController.updateProduct);
 router.delete('/products/:id', productController.deleteProduct);
+
+// order
+router.post('/orders', orderController.createOrder);
+router.get('/orders/:id', orderController.getOrderById);
+router.get('/orders', orderController.getAllOrders);
+router.put('/orders/:id', orderController.updateOrder);
+router.delete('/orders/:id', orderController.deleteOrder);
 
 export { router }
