@@ -22,13 +22,11 @@ const deleteOrder = async (id: string): Promise<IOrder | null> => {
 };
 
 const concludeOrder = async (id: string): Promise<IOrder | null> => {
-    const order = await getOrderById(id);
+    const updateData: Partial<IOrder> = {
+        conclude: true
+    };
 
-    if (order) {
-        order.conclude = true
-    }
-
-    return null;
+    return await orderRepository.updateOrder(id, updateData);;
 };
 
 export {
