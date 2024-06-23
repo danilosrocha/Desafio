@@ -21,10 +21,21 @@ const deleteOrder = async (id: string): Promise<IOrder | null> => {
     return await orderRepository.deleteOrder(id);
 };
 
+const concludeOrder = async (id: string): Promise<IOrder | null> => {
+    const order = await getOrderById(id);
+
+    if (order) {
+        order.conclude = true
+    }
+
+    return null;
+};
+
 export {
     createOrder,
     getOrderById,
     getAllOrders,
     updateOrder,
     deleteOrder,
+    concludeOrder
 };

@@ -4,6 +4,7 @@ interface IOrder extends Document {
     number: number
     observation: string,
     date: Date
+    conclude: boolean
     products: {
         product: mongoose.Types.ObjectId;
         quantity: number;
@@ -27,6 +28,10 @@ const orderSchema: Schema = new Schema({
         type: Date,
         require: true,
         default: Date.now
+    },
+    conclude: {
+        type: Boolean,
+        default: false
     },
     products: [
         {
@@ -53,6 +58,36 @@ const orderSchema: Schema = new Schema({
         required: true
     }
 })
+
+interface ISequence extends Document {
+    _id: string;
+    sequence_value: number;
+}
+
+const SequenceSchema: Schema = new Schema({
+    _id: { type: String, required: true },
+    sequence_value: { type: Number, default: 0 }
+});
+
+const Sequence = mongoose.model<ISequence>('Sequence', SequenceSchema);
+
+orderSchema.pre<IOrder>('save', async function (next) {
+    if (!this.number) {
+        try {
+            const sequence = await Sequence.findByIdAndUpdate(
+                { _id: 'orderId' },
+                { $inc: { sequence_value: 1 } },
+                { new: true, upsert: true }
+            );
+            this.number = sequence.sequence_value;
+            next();
+        } catch (err) {
+            next();
+        }
+    } else {
+        next();
+    }
+});
 
 const order = mongoose.model<IOrder>('Order', orderSchema)
 

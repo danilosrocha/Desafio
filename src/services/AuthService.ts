@@ -19,7 +19,7 @@ async function login(email: string, password: string): Promise<string> {
 
         const token = sign({
             name: user.name,
-            email: user.email
+            email: user.email,
         },
             process.env.JWT_SECRET!,
             {
