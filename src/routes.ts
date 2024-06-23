@@ -49,6 +49,6 @@ router.get('/orders/:id', isAuthenticated, orderController.getOrderById);
 router.get('/orders', isAuthenticated, orderController.getAllOrders);
 router.put('/orders/:id', isAuthenticated, orderController.updateOrder);
 router.delete('/orders/:id', isAuthenticated, orderController.deleteOrder);
-router.post('/orders/:id', isAuthenticated, orderController.concludeOrder);
+router.get('/orders/conclude/:id', isAuthenticated, orderController.concludeOrder);
 
 export { router }
