@@ -5,12 +5,26 @@ const createCompany = async (userData: ICompany): Promise<ICompany> => {
     return await user.save();
 };
 
-const getCompanyById = async (id: string): Promise<ICompany | null> => {
-    return await Company.findById(id);
+const getCompanyById = async (id: string, userId: string): Promise<ICompany | null> => {
+    const company = await Company.findById(id)
+
+    if (company && company.user.toString() === userId) {
+        return company;
+    }
+
+    return null
 };
 
-const getAllCompanies = async (): Promise<ICompany[]> => {
-    return await Company.find();
+const getAllCompanies = async (userId: string): Promise<ICompany[]> => {
+    try {
+        let companies = await Company.find({ userId: userId }).exec();
+
+        companies = companies.filter(e => e.user.toString() === userId);
+
+        return companies;
+    } catch (error) {
+        throw new Error(`Failed to fetch companies: ${error}`);
+    }
 };
 
 const updateCompany = async (id: string, updateData: Partial<ICompany>): Promise<ICompany | null> => {

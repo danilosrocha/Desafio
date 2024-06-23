@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
 import * as companyService from '../services/CompanyService';
+import getUserIdFromToken from '../utils/GetUserId';
 
 const createCompany = async (req: Request, res: Response): Promise<void> => {
     try {
+
         const company = await companyService.createCompany(req.body);
         res.status(201).json(company);
     } catch (error) {
@@ -12,11 +14,20 @@ const createCompany = async (req: Request, res: Response): Promise<void> => {
 
 const getCompanyById = async (req: Request, res: Response): Promise<void> => {
     try {
-        const company = await companyService.getCompanyById(req.params.id);
+        const userId = getUserIdFromToken(req) || ""
+
+        if (!userId) {
+            res.status(500).json({ error: "error" });
+        }
+
+        const company = await companyService.getCompanyById(req.params.id, userId);
         if (!company) {
             res.status(404).json({ message: 'Company not found' });
             return;
         }
+
+        console.log(company);
+
         res.status(200).json(company);
     } catch (error) {
         res.status(500).json({ error: error });
@@ -25,7 +36,13 @@ const getCompanyById = async (req: Request, res: Response): Promise<void> => {
 
 const getAllCompanies = async (req: Request, res: Response): Promise<void> => {
     try {
-        const companys = await companyService.getAllCompanies();
+        const userId = getUserIdFromToken(req) || ""
+
+        if (!userId) {
+            res.status(500).json({ error: "error" });
+        }
+
+        const companys = await companyService.getAllCompanies(userId);
         res.status(200).json(companys);
     } catch (error) {
         console.error('Error fetching all companys:', error);

@@ -5,12 +5,12 @@ const createCompany = async (userData: ICompany): Promise<ICompany> => {
     return await userRepository.createCompany(userData);
 };
 
-const getCompanyById = async (id: string): Promise<ICompany | null> => {
-    return await userRepository.getCompanyById(id);
+const getCompanyById = async (id: string, userId: string): Promise<ICompany | null> => {
+    return await userRepository.getCompanyById(id, userId);
 };
 
-const getAllCompanies = async (): Promise<ICompany[]> => {
-    return await userRepository.getAllCompanies();
+const getAllCompanies = async (userId: string): Promise<ICompany[]> => {
+    return await userRepository.getAllCompanies(userId);
 };
 
 const updateCompany = async (id: string, updateData: Partial<ICompany>): Promise<ICompany | null> => {
