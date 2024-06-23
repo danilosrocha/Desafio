@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as orderService from '../services/OrderService';
+import getUserIdFromToken from '../utils/GetUserId';
 
 const createOrder = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -25,7 +26,13 @@ const getOrderById = async (req: Request, res: Response): Promise<void> => {
 
 const getAllOrders = async (req: Request, res: Response): Promise<void> => {
     try {
-        const orders = await orderService.getAllOrders();
+        const userId = getUserIdFromToken(req) || ""
+
+        if (!userId) {
+            res.status(500).json({ error: "error" });
+        }
+
+        const orders = await orderService.getAllOrders(userId);
         res.status(200).json(orders);
     } catch (error) {
         console.error('Error fetching all orders:', error);

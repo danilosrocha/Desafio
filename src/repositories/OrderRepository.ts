@@ -1,3 +1,4 @@
+import company from '../models/Company';
 import Order, { IOrder } from '../models/Order';
 
 const createOrder = async (orderData: IOrder): Promise<IOrder> => {
@@ -9,9 +10,14 @@ const getOrderById = async (id: string): Promise<IOrder | null> => {
     return await Order.findById(id);
 };
 
-const getAllOrders = async (): Promise<IOrder[]> => {
+const getAllOrders = async (userId: string): Promise<IOrder[]> => {
     try {
-        const orders = await Order.find().populate('company').exec();
+        const companies = await company.find({ user: userId }).exec();
+
+        const companyIds = companies.map(company => company._id);
+
+        const orders = await Order.find({ company: { $in: companyIds } }).populate('company').exec();
+
         return orders;
     } catch (error) {
         console.error('Erro ao buscar pedidos:', error);

@@ -17,9 +17,7 @@ const getCompanyById = async (id: string, userId: string): Promise<ICompany | nu
 
 const getAllCompanies = async (userId: string): Promise<ICompany[]> => {
     try {
-        let companies = await Company.find({ userId: userId }).exec();
-
-        companies = companies.filter(e => e.user.toString() === userId);
+        const companies = await Company.find({ user: userId }).exec();
 
         return companies;
     } catch (error) {

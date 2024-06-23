@@ -9,8 +9,8 @@ const getOrderById = async (id: string): Promise<IOrder | null> => {
     return await orderRepository.getOrderById(id);
 };
 
-const getAllOrders = async (): Promise<IOrder[]> => {
-    return await orderRepository.getAllOrders();
+const getAllOrders = async (userId: string): Promise<IOrder[]> => {
+    return await orderRepository.getAllOrders(userId);
 };
 
 const updateOrder = async (id: string, updateData: Partial<IOrder>): Promise<IOrder | null> => {

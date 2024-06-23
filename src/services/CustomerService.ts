@@ -9,8 +9,8 @@ const getCustomerById = async (id: string): Promise<ICustomer | null> => {
     return await userRepository.getCustomerById(id);
 };
 
-const getAllCustomers = async (): Promise<ICustomer[]> => {
-    return await userRepository.getAllCustomers();
+const getAllCustomers = async (userId: string): Promise<ICustomer[]> => {
+    return await userRepository.getAllCustomers(userId);
 };
 
 const updateCustomer = async (id: string, updateData: Partial<ICustomer>): Promise<ICustomer | null> => {

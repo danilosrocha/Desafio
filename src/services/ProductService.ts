@@ -9,8 +9,8 @@ const getProductById = async (id: string): Promise<IProduct | null> => {
     return await userRepository.getProductById(id);
 };
 
-const getAllProducts = async (): Promise<IProduct[]> => {
-    return await userRepository.getAllProducts();
+const getAllProducts = async (userId: string): Promise<IProduct[]> => {
+    return await userRepository.getAllProducts(userId);
 };
 
 const updateProduct = async (id: string, updateData: Partial<IProduct>): Promise<IProduct | null> => {
